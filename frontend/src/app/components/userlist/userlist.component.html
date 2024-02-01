@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Users</h1>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-sm-12">
+        <h3>List of Users :</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <ul *ngIf="users.length > 0">
+            <li *ngFor="let user of users">{{ user.display }}</li>
+        </ul>
+        <p *ngIf="users.length == 0">No users found</p>
+    </div>
+</div> -->
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+    <thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Email</th>
+            <th>Lastname</th>
+            <th>Firstname</th>
+            <th>Age</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.pseudo }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.roleAsString }}</td>
+        </tr>
+    </tbody>
+</table>

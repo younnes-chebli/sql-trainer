@@ -1,0 +1,92 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.larger-icon {
+    font-size: 3rem;
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    text-align: center;
+}
+
+.margin-right {
+    margin-right: 1rem;
+}
+
+.block {
+    display: block;
+}
+
+.button-margins {
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+.mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-expansion-panel-header {
+    height: 3rem;
+}
+
+mat-expansion-panel {
+    margin-bottom: 0.5rem;
+}
+
+.margin-top {
+    margin-top: 3rem;
+}
+
+.width {
+    width: 80%;
+}
+
+.margin-bottom {
+    margin-bottom: 3rem;
+}
+
+.new-question-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.solution-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    outline: 3px solid black;
+}
+
+.solution-buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.code-editor-container {
+    flex-grow: 1;
+}
+
+.has-attempt {
+    color: blueviolet;
+    font-size: small;
+}
+
+.add {
+    margin: 1rem;
+}
+
+.fit-height {
+    height: 150px;
+}

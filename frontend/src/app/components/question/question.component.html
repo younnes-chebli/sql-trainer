@@ -1,0 +1,103 @@
+<div class="flex">
+    <div>
+        <span>
+            <button class="button" (click)="navigateToQuestion(-1)" [disabled]="currentQuestionIndex === 0"
+                mat-raised-button tabindex="-1" matTooltip="Question Précédente">
+                <mat-icon>arrow_back_ios</mat-icon>
+            </button>
+        </span>
+        <span>
+            <button class="button" (click)="navigateToQuestion(1)" matTooltip="Question Suivante"
+                [disabled]="currentQuestionIndex === questionIds.length - 1" mat-raised-button tabindex="-1">
+                <mat-icon>arrow_forward_ios</mat-icon>
+            </button>
+        </span>
+    </div>
+    <div>
+        <h1 class="bold">{{quizName}} - Exercice {{order}}</h1>
+    </div>
+    <span>
+        <button *ngIf="!isClosed" (click)="openConfirmationDialog()" mat-raised-button tabindex="-1"
+            [disabled]="!hasAttempt" matTooltip="Clôturer Quiz">
+            <mat-icon>close</mat-icon>
+        </button>
+    </span>
+</div>
+<h2 class="question-body">{{body}}</h2>
+
+<hr>
+
+<p>Votre requête <span *ngIf="lastAnswer === undefined">(Pas encore répondu)</span></p>
+
+<code-editor #editor [(ngModel)]="sql" [readOnly]="isClosed" [databaseName]="databaseName"></code-editor>
+
+<span *ngIf="!isClosed">
+    <button (click)="onSubmit()" class="button" mat-raised-button tabindex="-1">
+        Envoyer
+    </button>
+</span>
+<span *ngIf="!isClosed">
+    <button class="button" (click)="clearEditor()" mat-raised-button tabindex="-1">
+        Effacer
+    </button>
+</span>
+<span *ngIf="!isTest && !isClosed">
+    <button class="button" (click)="showSolutions()" mat-raised-button tabindex="-1">
+        Voir Solutions
+    </button>
+</span>
+<br><br>
+
+<p *ngIf="lastAnswer && !cleared">{{question.formatLastAnswerTimestamp}}</p>
+
+<div *ngIf="(lastAnswer?.isCorrect && !isTest && !cleared) || (isTest && isClosed && lastAnswer?.isCorrect)">
+    <p class="positive-comment">
+        Votre requête
+        a retourné une
+        réponse
+        correcte!
+        Néanmoins , comparez votre solution avec
+        celle(s)
+        ci-dessous pour voir si vous n'avez pas eu un peu de chance... ;-)
+    </p>
+    <p *ngIf="lastAnswer && lastAnswer.resultData!.length != 0">{{lastAnswer.resultData!.length}} lignes</p>
+    <table class='table table-striped half' aria-labelledby="tableLabel"
+        *ngIf="lastAnswer?.resultColumns && lastAnswer?.resultData">
+        <thead>
+            <tr>
+                <th *ngFor="let column of lastAnswer?.resultColumns">
+                    {{column}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataRow of lastAnswer?.resultData">
+                <td *ngFor="let data of dataRow">{{ data }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div
+    *ngIf="(lastAnswer?.sql !== '' && !lastAnswer?.isCorrect && isAnswered && !isTest && !cleared) || (isTest && isClosed && lastAnswer?.sql !== '' && !lastAnswer?.isCorrect && isAnswered)">
+    <p class="negative-comment">Votre requête a retourné un mauvais résultat.</p>
+    <p *ngIf="lastAnswer && lastAnswer.resultData!.length != 0">{{lastAnswer.resultData!.length}} lignes</p>
+    <ul>
+        <li class="negative-comment" *ngFor="let error of lastAnswer?.errors">
+            {{error}}
+        </li>
+    </ul>
+</div>
+
+<p *ngIf="(lastAnswer?.sql === '' && !cleared && !isTest) || (isTest && isClosed && lastAnswer?.sql === '' && !cleared)"
+    class="empty-comment">Vous avez
+    entré une requête vide.</p>
+
+<p class="no-answer" *ngIf="!isAnswered && isClosed">Vous n'avez pas répondu.</p>
+
+<div *ngIf="areSolutionsDisplayed || isClosed">
+    <div *ngFor="let solution of question?.solutions">
+        <h2>Solution {{solution.order}}</h2>
+        <p class="solution">{{solution.sql}}</p>
+    </div>
+</div>

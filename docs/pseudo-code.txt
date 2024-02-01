@@ -1,0 +1,28 @@
+/// Validation du résultat d'une requête
+
+Lorsqu'on exécute une requête, on reçoit en retour un tableau de données à deux dimensions dont chaque ligne représente un tuple et chaque colonne correspond à un des éléments de la partie "projection" de la requête.
+
+Voici le pseudo-code d'un algorithme qui vous permettra de comparer les résultats de deux requêtes : ///
+
+créer une liste vide d'erreurs
+
+si nombre de lignes différent dans les 2 tableaux
+    ajouter une erreur "bad number of rows"
+
+si nombre de colonnes différent dans les 2 tableaux
+    ajouter une erreur "bad number of columns"
+
+si pas d'erreur à ce stade
+
+    mettre chacun des deux tableaux "à plat", c'est-à-dire créer une liste (une dimension)
+        qui reprend toutes les valeurs du tableau initial, en convertissant en string les valeurs qui ne sont
+        pas des string (entiers, réels, dates, ...)
+
+    trier chacune des deux listes dans l'ordre lexicographique
+
+    comparer les deux listes élément par élément
+
+    s'il y a la moindre différence 
+        ajouter une erreur "wrong data"
+
+retourner la liste d'erreurs

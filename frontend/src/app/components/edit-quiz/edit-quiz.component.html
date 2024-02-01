@@ -1,0 +1,117 @@
+<p class="has-attempt" *ngIf="hasAttempt && quiz.isTest">test en lecture seule car il fait l'objet d'au moins
+    une tentative par un étudiant</p>
+<div class="row">
+    <div class="col">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput [formControl]="ctlName" [readonly]="hasAttempt && quiz.isTest">
+            <mat-error *ngIf="ctlName.hasError('required')">
+                nom est requis
+            </mat-error>
+            <mat-error *ngIf="ctlName.hasError('trimmedMinLength')">
+                au moins 3 caractères
+            </mat-error>
+            <mat-error *ngIf="ctlName.hasError('quizNameUsed')">
+                nom de quiz déjà pris
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput [formControl]="ctlDescription" [readonly]="hasAttempt && quiz.isTest"></textarea>
+        </mat-form-field>
+        <div>Entraînement &larr;<mat-slide-toggle [formControl]="ctlIsTest"></mat-slide-toggle>&rarr; Test</div>
+    </div>
+    <div class="col">
+        <mat-form-field>
+            <mat-label>Base de données</mat-label>
+            <mat-select [formControl]="ctlDatabaseId">
+                <mat-option *ngFor="let database of databases" [value]="database.id">
+                    {{database.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="ctlName.hasError('required')">
+                requis
+            </mat-error>
+        </mat-form-field>
+        <div *ngIf="ctlIsTest.value">
+            <mat-form-field>
+                <mat-label>Début</mat-label>
+                <input matInput [matDatepicker]="startPicker" [formControl]="ctlStartDate"
+                    [readonly]="hasAttempt && quiz.isTest">
+                <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker [disabled]="hasAttempt && quiz.isTest" #startPicker></mat-datepicker>
+                <mat-error *ngIf="ctlStartDate.hasError('required')">
+                    requis
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fin</mat-label>
+                <input matInput [matDatepicker]="endPicker" [formControl]="ctlEndDate"
+                    [readonly]="hasAttempt && quiz.isTest">
+                <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker [disabled]="hasAttempt && quiz.isTest" #endPicker></mat-datepicker>
+                <mat-error *ngIf="ctlEndDate.hasError('required')">
+                    requis
+                </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="frm.hasError('dateRange')">
+                la date de début doit être antérieure à la date de fin
+            </mat-error>
+        </div>
+    </div>
+    <div class="col">
+        <mat-slide-toggle [formControl]="ctlIsPublished">Publié</mat-slide-toggle>
+        <br><br><br>
+        <div>
+            <span *ngIf="!(hasAttempt && quiz?.isTest)" class="margin-right" (click)="saveQuiz()">
+                <button mat-icon-button [disabled]="!frm.valid || !isQuestionValid || !isSolutionValid">
+                    <mat-icon class="larger-icon">save</mat-icon>
+                </button>
+            </span>
+            <span *ngIf="!isNew" class="margin-right">
+                <button (click)="openConfirmationDialog()" mat-icon-button>
+                    <mat-icon class="larger-icon">delete</mat-icon>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<p class="field-error" *ngIf="frm.hasError('atLeastOneQuestion')">au moins une question</p>
+<p class="field-error" *ngIf="frm.hasError('atLeastOneSolutionPerQuestion')">au moins une solution par question</p>
+<h2 class="margin-top">Questions</h2>
+<mat-expansion-panel [disabled]="hasAttempt && quiz.isTest" #newQuestionPanel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Nouvelle Question
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field class="width">
+        <mat-label>Intitulé</mat-label>
+        <textarea matInput [formControl]="ctlQuestionBody"></textarea>
+        <mat-error *ngIf="ctlQuestionBody.hasError('required')">
+            requis
+        </mat-error>
+        <mat-error *ngIf="ctlQuestionBody.hasError('trimmedMinLength')">
+            au moins 2 caractères
+        </mat-error>
+    </mat-form-field>
+    <button class="add" mat-raised-button (click)="addQuestion()"
+        [disabled]="frmQuestions.pristine || frmQuestions.invalid || frmQuestions.pending">
+        <mat-icon>add</mat-icon>
+    </button>
+</mat-expansion-panel>
+<hr>
+
+<app-question-item *ngFor="let question of questions; let i = index" [index]="i" [question]="question"
+    [hasAttempt]="hasAttempt" [isTest]="isTest" [questions]="questions" [frmSolutions]="frmSolutions"
+    [ctlSolutionSql]="ctlSolutionSql" [isQuestionValid]="isQuestionValid" [isSolutionValid]="isSolutionValid"
+    (moveQuestionUp)="moveQuestionUp($event)" (moveQuestionDown)="moveQuestionDown($event)"
+    (validateQuestionBody)="validateQuestionBody($event)" (addSolution)="addSolution($event)"
+    (validateSolutionSql)="validateSolutionSql($event)"
+    (openConfirmationDialogSolution)="openConfirmationDialogSolution($event)"
+    (openConfirmationDialogQuestion)="openConfirmationDialogQuestion($event)"
+    (reorderSolutions)="reorderSolutions($event)" />
+<br><br><br>

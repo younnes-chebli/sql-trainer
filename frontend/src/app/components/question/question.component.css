@@ -1,0 +1,41 @@
+.question-body {
+    color: darkcyan;
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    margin-right: 1rem;
+}
+
+.solution {
+    color: darkgreen;
+}
+
+.positive-comment {
+    color: green;
+}
+
+.negative-comment {
+    color: brown;
+}
+
+.empty-comment {
+    color: darkgray;
+}
+
+.half {
+    width: 50%;
+}
+
+.no-answer {
+    color: blueviolet;
+}

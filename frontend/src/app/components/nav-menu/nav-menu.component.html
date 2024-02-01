@@ -1,0 +1,50 @@
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" [routerLink]="isStudent ? ['/quizzes'] : isTeacher ? ['/teacher'] : ['/']">
+                SQL Trainer | PRID 2324 G04
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex" [ngClass]="{ show: isExpanded }">
+                <ul class="navbar-nav flex-grow me-auto">
+                    <!-- <li class="nav-item" [routerLinkActive]="['link-active']"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+                    </li> -->
+                    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="currentUser && isStudent">
+                        <a class="nav-link text-dark" [routerLink]="['/quizzes']">Liste des Quiz</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="currentUser && isTeacher">
+                        <a class="nav-link text-dark" [routerLink]="['/teacher']">Gestion des Quiz</a>
+                    </li>
+                    <!-- <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="currentUser && isTeacher">
+                        <a class="nav-link text-dark" [routerLink]="['/session1']">Session 1</a>
+                    </li> -->
+                    <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
+                        <a class="nav-link text-dark" [routerLink]='["/test-code-editor"]'>Démo Editeur de Code SQL</a>
+                    </li> -->
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!currentUser">
+                        <a class="nav-link text-dark" [routerLink]="['/login']">
+                            <span class="material-icons">exit_to_app</span>
+                            <span>Se Connecter</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="currentUser">
+                        <a class="nav-link text-dark" [routerLink]='[]' (click)='logout()'>
+                            <span class="material-icons">power_settings_new</span>
+                            <span> Logout </span>
+                            <span class="text-info">({{authenticationService.currentUser?.pseudo}}</span>
+                            |
+                            <span class="text-info">{{authenticationService.currentUser?.roleAsString}})</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

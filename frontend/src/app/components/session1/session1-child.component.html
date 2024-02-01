@@ -1,0 +1,10 @@
+<fieldset>
+    <legend>Session1ChildComponent</legend>
+    <div><b>Tentatives en cours pour {{selectedStudent?.pseudo}} :</b></div>
+    <ul>
+        <li *ngFor="let attempt of selectedStudent?.attempts" class="quiz">
+            <span>{{attempt.id}} - {{attempt.quiz?.name}}</span>
+            <button (click)="closeAttempt(attempt)" mat-raised-button>Fermer</button>
+        </li>
+    </ul>
+</fieldset>

@@ -1,0 +1,9 @@
+<div *ngIf="isTeacher">
+    <app-all-quizzes-list />
+</div>
+<div *ngIf="isStudent">
+    <app-quizzes-lists />
+</div>
+<h1 *ngIf="!currentUser">
+    Veuillez vous <a [routerLink]="['/login']">connecter</a>
+</h1>

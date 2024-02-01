@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Quiz</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="filterChanged($event)" [value]="filter" appSetFocus>
+        </mat-form-field>
+
+        <h2>Quiz d'entraînement</h2>
+
+        <app-quiz-list [dataSource]="dataSourceTrainings" [displayedColumns]="displayedColumnsTrainings" [state]="state"
+            [filter]="filter" [isTraining]="true" [filterChangedEvent]="filterChangedEvent" />
+
+        <br>
+
+        <h2>Quiz de test</h2>
+
+        <app-quiz-list [dataSource]=" dataSourceTests" [displayedColumns]="displayedColumnsTests" [state]="state"
+            [filter]="filter" [isTest]="true" [filterChangedEvent]="filterChangedEvent" />
+
+    </div>
+</div>

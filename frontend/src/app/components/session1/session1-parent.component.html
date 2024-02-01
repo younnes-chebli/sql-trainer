@@ -1,0 +1,18 @@
+<fieldset>
+    <legend>Session1ParentComponent</legend>
+    <h2>Etudiants ayant au moins une tentative en cours (parmi les quiz d'entraînement uniquement)</h2>
+
+    <div *ngIf="students?.length === 0">
+        Aucun étudiant ne répond à ce critère !
+    </div>
+    <div *ngIf="students?.length !== 0">
+        <mat-form-field>
+            <mat-label>Etudiant</mat-label>
+            <mat-select [(value)]="selectedStudent">
+                <mat-option *ngFor="let student of students" [value]="student">{{student.pseudo}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <session1-child *ngIf="selectedStudent" [selectedStudent]="selectedStudent"
+            (attemptClosed)="loadStudents()"></session1-child>
+    </div>
+</fieldset>

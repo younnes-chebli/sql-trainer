@@ -1,0 +1,19 @@
+<h1>Test Code Editor</h1>
+
+<p>Ce composant permet d'illustrer la manière d'utiliser le composant <code>code-editor</code> pour éditer 
+du code SQL, et plus particulièrement comment on peut faire un binding bidirectionnel de sa valeur avec 
+un attribut (ici <code>query</code>) du composant parent. Pour cela, on a ajouté un <code>textarea</code> 
+qui fait également un binding bidirectionnel vers le même attribut.</p>
+
+<p>Il illustre aussi à travers la checkbox "Read Only" la manière dont on peut contrôler le fait qu'il soit
+modifiable ou en lecture seule.</p>
+
+<code-editor #editor [(ngModel)]="query" [readOnly]="true"></code-editor>
+
+<div>
+    <label for="readonly">Read Only</label>&nbsp;
+    <input id="readonly" type="checkbox" [(ngModel)]="editor.readOnly">
+</div>
+
+<br>
+<textarea [(ngModel)]="query" cols="80" rows="5" style="width: 100%"></textarea>

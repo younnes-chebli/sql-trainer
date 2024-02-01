@@ -1,0 +1,75 @@
+<mat-expansion-panel #questionsPanel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{question.order}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{question.body}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>
+        <button class="button-margins question-order-button" mat-raised-button
+            [disabled]="(hasAttempt && isTest) || index === 0" (click)="onMoveQuestionUp()">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button class="button-margins" mat-raised-button
+            [disabled]="(hasAttempt && isTest) || index === questions.length - 1" (click)="onMoveQuestionDown()">
+            <mat-icon>arrow_downward</mat-icon>
+        </button>
+        <button class="button-margins" mat-raised-button [disabled]="hasAttempt && isTest"
+            (click)="onOpenConfirmationDialogQuestion()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+
+    <mat-form-field class="margin-top width">
+        <mat-label>Intitulé</mat-label>
+        <textarea (input)="onValidateQuestionBody()" [readonly]="hasAttempt && isTest" matInput
+            [(ngModel)]="questions[index].body"></textarea>
+        <p class="field-error" *ngIf="!isQuestionValid">requis au moins 2 caractères</p>
+    </mat-form-field>
+
+    <hr>
+    <mat-expansion-panel [disabled]="hasAttempt && isTest" #newSolutionPanel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Nouvelle Solution
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="margin-top width">
+            <textarea class="fit-height" matInput [formControl]="ctlSolutionSql"></textarea>
+            <mat-error *ngIf="ctlSolutionSql.hasError('required')">
+                requis
+            </mat-error>
+        </mat-form-field>
+        <button class="add" mat-raised-button (click)="onAddSolution()"
+            [disabled]="frmSolutions.pristine || frmSolutions.invalid || frmSolutions.pending">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-expansion-panel>
+    <hr>
+    <div *ngFor="let solution of question.solutions; let sIndex = index" class="solution-container">
+        <div class="solution-buttons-container">
+            <button mat-raised-button [disabled]="(hasAttempt && isTest) || sIndex === 0"
+                (click)="onMoveSolutionUp(sIndex)">
+                <mat-icon>arrow_upward</mat-icon>
+            </button>
+            <button mat-raised-button [disabled]="(hasAttempt && isTest) || sIndex === question.solutions.length - 1"
+                (click)="onMoveSolutionDown(sIndex)">
+                <mat-icon>arrow_downward</mat-icon>
+            </button>
+        </div>
+        <mat-form-field class="margin-top width">
+            <mat-label>Solution {{solution.order}}</mat-label>
+            <textarea class="fit-height" (input)="onValidateSolutionSql(solution.sql!)"
+                [readonly]="hasAttempt && isTest" matInput [(ngModel)]="solution.sql"></textarea>
+            <p class="field-error" *ngIf="!isSolutionValid">requis</p>
+        </mat-form-field>
+        <button class="delete-solution-btn" mat-raised-button [disabled]="hasAttempt && isTest"
+            (click)="onOpenConfirmationDialogSolution({question, solution})">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</mat-expansion-panel>

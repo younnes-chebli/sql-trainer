@@ -1,0 +1,42 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.center_div {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+nav.center_div {
+    margin-bottom: 25px;
+}
+
+.field-error {
+    float: right;
+    color: red;
+}
+
+.form {
+    margin: 0;
+    display: grid;
+    /* grid-row-gap: 10px; */
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.footer {
+    margin-top: 20px;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}

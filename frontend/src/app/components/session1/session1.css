@@ -1,0 +1,23 @@
+fieldset {
+    margin: 10px;
+    border: 1px solid red !important;
+    padding: 0 10px 10px 10px;
+    border-bottom: none;
+}
+
+legend {
+    float: none;
+    text-align: right;
+    width: auto !important;
+    border: none;
+    font-size: 12pt;
+    color: red;
+}
+
+.quiz {
+    margin: 5px;
+}
+
+.quiz button {
+    margin-left: 10px;
+}
