@@ -1,7 +1,5 @@
 # SQL Trainer
 
-School Project
-
 ASP.NET & Angular Web Application to train your SQL skills
 
 ## Technologies
