@@ -7,7 +7,7 @@ ASP.NET & Angular Web Application to train your SQL skills
 - Angular
 - ASP.NET
 - Entity Framework
-- MySql
+- MySQL
 
 ## The App
 
