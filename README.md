@@ -4,9 +4,10 @@ ASP.NET & Angular Web Application to train your SQL skills
 
 ## Technologies
 
-- ASP.NET
 - Angular
-- Angular Material
+- ASP.NET
+- Entity Framework
+- MySql
 
 ## The App
 
