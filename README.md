@@ -1,12 +1,12 @@
 # SQL Trainer
 
-ASP.NET & Angular Web Application to train your SQL skills
+ASP.NET Core & Angular Web Application to train your SQL skills
 
 ## Technologies
 
 - Angular
-- ASP.NET
-- Entity Framework
+- ASP.NET Core
+- Entity Framework Core
 - MySQL
 
 ## The App
